@@ -1,0 +1,47 @@
+
+<header>
+            <td style="width: 80%;">
+                <input [(ngModel)]="city" placeholder="Enter city name" class="form-control" />
+            </td>
+            <td style="width: 20%;">
+                <button  style="width: 80%;" (click)="getWeather()" class="btn btn-primary">Get Weather</button>
+            </td>
+</header>
+<br>
+<br>
+
+<div class="container">
+  
+    <table class="table" style="margin: auto;width:700px;margin-top: 50px;">
+        <tr>
+            <th colspan="2" style="text-align: center;">
+                <h1>Search Area for the Weather</h1>
+            </th>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="borders" *ngIf="weatherData" style="text-align: center; margin-top: 20px;">
+                    <h2>{{ weatherData.location.name }}, {{ weatherData.location.country }}, {{weatherData.location.region}},{{weatherData.location.timezone_id}}, <hr> Local Time: {{weatherData.location.localtime}}</h2>
+                    <hr>
+                    <p class="bold">Temperature:</p>
+                    <p>{{ weatherData.current.temperature }} °C</p>
+                    <p class="bold">Condition:</p>
+                    <p>{{ weatherData.current.weather_descriptions[0] }}</p>
+                    <p class="bold">Time:</p>
+                    <p>{{weatherData.current.observation_time}}</p>
+                    <p class="bold">Wind Info:</p>
+                    <p >Wind Speed: {{weatherData.current.wind_speed}}</p>
+                    <p>Wind Visibility: {{weatherData.current.visibility}}</p>
+                    <p>Humidity: {{weatherData.current.humidity}}</p>
+                    <img [src]="weatherData.current.weather_icons[0]" alt="Weather icon" style="border-radius: 20px;"/>
+                </div>
+                <p></p>
+
+                <p *ngIf="errorMessage" style="color: red; margin-top: 20px;">{{ errorMessage }}</p>
+            </td>
+        </tr>
+    </table>
+  
+
+
+  
