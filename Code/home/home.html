@@ -1,0 +1,125 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card border-warning mt-5">
+                <div class="card-header bg-warning text-dark">
+                    <h1 class="text-center mb-0">Search Area for the Weather</h1>
+                </div>
+                <div class="card-body">
+                    <div class="input-group mb-3">
+                        <input [(ngModel)]="city" placeholder="Enter city name" 
+                               class="form-control border-warning" 
+                               (keyup.enter)="getWeather()" />
+                        <button (click)="getWeather()" 
+                                class="btn btn-warning text-dark">
+                            <i class="bi bi-search"></i> Get Weather
+                        </button>
+                    </div>
+
+                    <div *ngIf="weatherData" class="text-center mt-4">
+                        <div class="card border-warning mb-4">
+                            <div class="card-header bg-warning text-dark">
+                                <h2 class="mb-0">{{ weatherData.location.name }}, {{ weatherData.location.country }}</h2>
+                                <p class="text-dark mb-0">{{ weatherData.location.region }}</p>
+                            </div>
+                            
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="card border-warning mb-3">
+                                            <div class="card-header bg-warning text-dark">
+                                                <h4 class="mb-0">Current Weather</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <img [src]="weatherData.current.weather_icons[0]" alt="Weather icon" class="mb-2" />
+                                                <p class="h5">{{ weatherData.current.weather_descriptions[0] }}</p>
+                                                <p>Temperature: {{ weatherData.current.temperature }}°C</p>
+                                                <p>Feels Like: {{ weatherData.current.feelslike }}°C</p>
+                                                <p>Humidity: {{ weatherData.current.humidity }}%</p>
+                                                <p>Wind: {{ weatherData.current.wind_speed }} km/h {{ weatherData.current.wind_dir }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card border-warning mb-3">
+                                            <div class="card-header bg-warning text-dark">
+                                                <h4 class="mb-0">Additional Info</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>Local Time: {{ weatherData.location.localtime }}</p>
+                                                <p>Pressure: {{ weatherData.current.pressure }} mb</p>
+                                                <p>Cloud Cover: {{ weatherData.current.cloudcover }}%</p>
+                                                <p>Visibility: {{ weatherData.current.visibility }} km</p>
+                                                <p>UV Index: {{ weatherData.current.uv_index }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" *ngIf="weatherData.current.astro">
+                                    <div class="col-md-6">
+                                        <div class="card border-warning mb-3">
+                                            <div class="card-header bg-warning text-dark">
+                                                <h4 class="mb-0">Astronomical Data</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>Sunrise: {{ weatherData.current.astro.sunrise }}</p>
+                                                <p>Sunset: {{ weatherData.current.astro.sunset }}</p>
+                                                <p>Moonrise: {{ weatherData.current.astro.moonrise }}</p>
+                                                <p>Moonset: {{ weatherData.current.astro.moonset }}</p>
+                                                <p>Moon Phase: {{ weatherData.current.astro.moon_phase }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6" *ngIf="weatherData.current.air_quality">
+                                        <div class="card border-warning mb-3">
+                                            <div class="card-header bg-warning text-dark">
+                                                <h4 class="mb-0">Air Quality</h4>
+                                            </div>
+                                            <div class="card-body">
+                                                <p>CO: {{ weatherData.current.air_quality.co }} μg/m³</p>
+                                                <p>NO₂: {{ weatherData.current.air_quality.no2 }} μg/m³</p>
+                                                <p>O₃: {{ weatherData.current.air_quality.o3 }} μg/m³</p>
+                                                <p>SO₂: {{ weatherData.current.air_quality.so2 }} μg/m³</p>
+                                                <p>PM2.5: {{ weatherData.current.air_quality['pm2_5'] }} μg/m³</p>
+                                                <p>PM10: {{ weatherData.current.air_quality.pm10 }} μg/m³</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="errorMessage" class="alert alert-warning text-center mt-3">
+                        {{ errorMessage }}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Search History -->
+            <div *ngIf="searchHistory.length > 0" class="card border-warning mt-4">
+                <div class="card-header bg-warning text-dark">
+                    <h3 class="mb-0">Search History</h3>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li *ngFor="let item of searchHistory; let i = index" 
+                            class="list-group-item list-group-item-warning d-flex justify-content-between align-items-center">
+                            <a href="javascript:void(0)" 
+                               (click)="searchFromHistory(item)" 
+                               class="text-dark text-decoration-none">
+                                {{ item }}
+                            </a>
+                            <button class="btn btn-warning" 
+                                    (click)="removeFromHistory(i)">×</button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+
+
+  
