@@ -1,0 +1,26 @@
+<input type="text" class="form-control" placeholder="Search Product Here" [(ngModel)] = "searchProduct">
+<p *ngIf = "filteredProduct.length > 0; else empty"></p>
+<hr>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Product Name</th>
+        <th>Stock</th>
+        <th>Price</th>
+        <th></th>
+    </tr>
+    <tr *ngFor = "let product of filteredProduct">
+        <td>{{product.name}}</td>
+        <td>{{product.stock}}</td>
+        <td>{{product.price}}</td>
+        
+        <td>
+            <button class="btn btn-primary" *ngIf = "product.stock > 0" (click)="addToCart(product)">Add To Cart</button>
+            <button disabled *ngIf = "product.stock === 0">Out of Stock</button>
+        </td>
+    </tr>
+    <ng-template #empty>
+            <p class = "text-center">Search is not in list</p>
+    </ng-template>
+</table>
+

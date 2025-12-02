@@ -1,0 +1,11 @@
+.btn{
+    background-color: brown;
+    color: white;
+}
+.btn:hover{
+    background: wheat;
+    color: black;
+}
+td{
+    width: 50px;
+}
