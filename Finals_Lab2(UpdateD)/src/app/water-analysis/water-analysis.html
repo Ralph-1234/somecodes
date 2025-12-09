@@ -1,0 +1,29 @@
+<div style="text-align:center; margin-top:100px;">
+<h1>{{ title() }}</h1>
+<hr>
+ <input type="text" [value]="date()"
+(input)="date.set($any($event.target).value)" placeholder="Date">
+<br><br>
+<input type="text" [value]="sourceAddress()"
+(input)="sourceAddress.set($any($event.target).value)" placeholder="Source Address"><br><br>
+<input type="text" [value]="waterStatus()"
+(input)="waterStatus.set($any($event.target).value)" placeholder="Potable / Not Potable"><br><br>
+<input type="text" [value]="remarks()"
+(input)="remarks.set($any($event.target).value)" placeholder="Explanation for the result"><br><br>
+
+<button (click)="addPatient()">Add Water Analysis</button>
+<hr>
+
+<!-- List Area-->
+<div *ngFor="let result of results" style="margin-bottom:10px;">
+<input [value]="result.date" (input)="result.date = $any($event.target).value">
+<input [value]="result.sourceAddress" (input)="result.sourceAddress = $any($event.target).value">
+<input [value]="result.waterStatus" (input)="result.waterStatus = $any($event.target).value">
+<input [value]="result.remarks" (input)="result.remarks = $any($event.target).value">
+
+
+<button (click)="updatePatient(result.id,result.date,result.sourceAddress,result.waterStatus,result.remarks)">Update</button>
+<button (click)="deletePatient(result.id)">Delete</button>
+<hr>
+</div>
+</div>

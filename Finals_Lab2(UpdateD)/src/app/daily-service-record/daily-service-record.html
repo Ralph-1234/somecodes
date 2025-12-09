@@ -1,0 +1,42 @@
+<div style="text-align:center; margin-top:100px;">
+<h1>{{ title() }}</h1>
+<hr>
+ <input type="text" [value]="date()"
+(input)="date.set($any($event.target).value)" placeholder="Date">
+<br><br>
+<input type="text" [value]="patientName()"
+(input)="patientName.set($any($event.target).value)" placeholder="Name">
+<br><br>
+<input type="number" [value]="age()"
+(input)="age.set($any($event.target).valueAsNumber)" placeholder="Age">
+<br><br>
+<input type="text" [value]="gender()"
+(input)="gender.set($any($event.target).value)" placeholder="Gender">
+<br><br>
+<input type="text" [value]="sicknessDiagnosed()"
+(input)="sicknessDiagnosed.set($any($event.target).value)" placeholder="Sickness"><br><br>
+<input type="text" [value]="treatmentProvided()"
+(input)="treatmentProvided.set($any($event.target).value)" placeholder="Treatment"><br><br>
+<input type="text" [value]="attendingPhysician()"
+(input)="attendingPhysician.set($any($event.target).value)" placeholder="Physician">
+<br><br>
+<button (click)="addPatient()">Add Patient</button>
+<hr>
+
+<!-- List Area-->
+<div *ngFor="let patient of patients" style="margin-bottom:10px;">
+<input [value]="patient.date" (input)="patient.date = $any($event.target).value">
+<input [value]="patient.name" (input)="patient.name = $any($event.target).value">
+<input type="number" [value]="patient.age" (input)="patient.age =$any($event.target).valueAsNumber">
+<input [value]="patient.gender" (input)="patient.gender = $any($event.target).value">
+<input [value]="patient.sickness" (input)="patient.sickness = $any($event.target).value">
+<input [value]="patient.treatment" (input)="patient.treatment = $any($event.target).value">
+<input [value]="patient.physician" (input)="patient.physician = $any($event.target).value">
+
+
+
+<button (click)="updatePatient(patient.id,patient.date,patient.name,patient.age,patient.gender,patient.sickness,patient.treatment,patient.physician)">Update</button>
+<button (click)="deletePatient(patient.id)">Delete</button>
+<hr>
+</div>
+</div>
